@@ -6,7 +6,7 @@ import i18next, { init } from "i18next";
 
 import { App } from "./components/app/ui";
 import { GlobalStyles } from "./globalStyles";
-import store from "./store/store";
+import { store } from "./store/store";
 import commonEn from "./shared/translations/en/common.json";
 
 // If you want to start measuring performance in your app, pass a function

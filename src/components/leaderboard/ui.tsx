@@ -1,13 +1,12 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
-import { AnyAction } from "redux";
 
 import { useStyles } from "./";
 import { LeaderboardTable } from "../leaderboardTable";
 import { IPlayerStats } from "../leaderboardTable/types";
-import { fetchLeaderboard } from "../../store";
 import { getLoserSelector, getWinnersSelector } from "../../store/selectors";
+import { storeSlice } from "../../store/reducer";
 
 export const Leaderboard = () => {
   const classes = useStyles();
@@ -16,7 +15,17 @@ export const Leaderboard = () => {
 
   useEffect(() => {
     (async () => {
-      await dispatch(fetchLeaderboard() as unknown as AnyAction);
+      const response = await fetch(`${process.env.REACT_APP_BASE_URL}/players`);
+      const players = await response.json();
+
+      const compareNumbers = (a: IPlayerStats, b: IPlayerStats) =>
+        b.score - a.score;
+
+      const sortedWinners = players.data.winners.sort(compareNumbers);
+      const sortedLosers = players.data.losers.sort(compareNumbers);
+
+      dispatch(storeSlice.actions.setWinners(sortedWinners));
+      dispatch(storeSlice.actions.setLosers(sortedLosers));
     })();
   }, [dispatch]);
 

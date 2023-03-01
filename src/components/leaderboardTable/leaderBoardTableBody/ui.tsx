@@ -1,5 +1,4 @@
 import React from "react";
-import { AnyAction } from "redux";
 import { useDispatch, useSelector } from "react-redux";
 import clsx from "clsx";
 import TableBody from "@material-ui/core/TableBody";
@@ -10,7 +9,7 @@ import { useStyles, ILeaderboardTableBody, CURRENT_ID, DEAD } from ".";
 import { SendRequestToFriendsButton } from "../../sendRequestToFriendsButton";
 import { StatisticTooltip } from "../../statisticTooltip";
 import { getFriendsSelector } from "../../../store/selectors";
-import { sendRequestToFriends } from "../../../store";
+import { storeSlice } from "../../../store/reducer";
 
 export const LeaderBoardTableBody = ({ rows }: ILeaderboardTableBody) => {
   const classes = useStyles();
@@ -19,7 +18,7 @@ export const LeaderBoardTableBody = ({ rows }: ILeaderboardTableBody) => {
   const friends = useSelector(getFriendsSelector);
 
   const handleClickSendToFriend = (id: string) => {
-    dispatch(sendRequestToFriends(id) as unknown as AnyAction);
+    dispatch(storeSlice.actions.requestToFriends(id));
   };
 
   return (

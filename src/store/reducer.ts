@@ -1,33 +1,32 @@
-import { FETCH_LEADERBOARD_SUCCESS, SEND_REQUEST_TO_FRIENDS } from ".";
-import { IStore } from ".";
+import { createSlice } from "@reduxjs/toolkit";
+import type { PayloadAction } from "@reduxjs/toolkit";
 
-const initialState = {
+import { IStore } from ".";
+import { IPlayerStats } from "../components/leaderboardTable/types";
+
+const initialState: IStore = {
   winners: [],
   losers: [],
   friends: [],
-} as IStore;
+};
 
-function rootReducer(
-  state = initialState,
-  action: { type: string; payload: any }
-) {
-  switch (action.type) {
-    case FETCH_LEADERBOARD_SUCCESS:
-      return {
-        ...state,
-        losers: action.payload.losers,
-        winners: action.payload.winners,
-      };
+export const storeSlice = createSlice({
+  name: "store",
+  initialState,
+  reducers: {
+    setWinners: (state, action: PayloadAction<IPlayerStats[]>) => {
+      state.winners = action.payload;
+    },
+    setLosers: (state, action: PayloadAction<IPlayerStats[]>) => {
+      state.losers = action.payload;
+    },
+    requestToFriends: (state, action: PayloadAction<string>) => {
+      state.friends = [...state.friends, action.payload];
+    },
+  },
+});
 
-    case SEND_REQUEST_TO_FRIENDS:
-      return {
-        ...state,
-        friends: [...state.friends, action.payload],
-      };
+// Action creators are generated for each case reducer function
+export const { setWinners, setLosers, requestToFriends } = storeSlice.actions;
 
-    default:
-      return state;
-  }
-}
-
-export default rootReducer;
+export default storeSlice.reducer;
