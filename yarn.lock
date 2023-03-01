@@ -8033,13 +8033,6 @@ react-app-polyfill@^3.0.0:
     regenerator-runtime "^0.13.9"
     whatwg-fetch "^3.6.2"
 
-react-block-ui@^1.3.6:
-  version "1.3.6"
-  resolved "https://registry.yarnpkg.com/react-block-ui/-/react-block-ui-1.3.6.tgz#abdd26ab074cbaf9ce3825d6af37a80e7aa69bbe"
-  integrity sha512-CgMctH6FRE5n9Iy4g4+gSmKfBLQasuzQeXI5h+aJEQUzSHj2zrVYbDsrkxikz1RvNalIvX0zrrd+zMjgrxANXQ==
-  dependencies:
-    prop-types "^15.6.2"
-
 react-dev-utils@^12.0.1:
   version "12.0.1"
   resolved "https://registry.yarnpkg.com/react-dev-utils/-/react-dev-utils-12.0.1.tgz#ba92edb4a1f379bd46ccd6bcd4e7bc398df33e73"

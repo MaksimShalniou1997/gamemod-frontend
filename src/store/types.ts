@@ -4,5 +4,4 @@ export interface IStore {
   winners: Array<IPlayerStats>;
   losers: Array<IPlayerStats>;
   friends: Array<string>;
-  isLoadingLeaderboardData: boolean;
 }

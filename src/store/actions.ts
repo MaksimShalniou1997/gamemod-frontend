@@ -1,3 +1,6 @@
+import { AnyAction } from "redux";
+import { IPlayerStats } from "../components/leaderboardTable/types";
+
 export const FETCH_LEADERBOARD_SUCCESS = "FETCH_LEADERBOARD_SUCCESS";
 
 const fetchLeaderboardSuccess = (data: any) => ({
@@ -5,19 +8,21 @@ const fetchLeaderboardSuccess = (data: any) => ({
   payload: data,
 });
 
-export const FETCH_LEADERBOARD = "FETCH_LEADERBOARD";
+export const fetchLeaderboard =
+  () => async (dispatch: (action: AnyAction) => void) => {
+    const response = await fetch(`${process.env.REACT_APP_BASE_URL}/players`);
+    const players = await response.json();
 
-const fetchLeaderboardLoading = () => ({
-  type: FETCH_LEADERBOARD,
-});
+    const compareNumbers = (a: IPlayerStats, b: IPlayerStats) =>
+      b.score - a.score;
 
-export const fetchLeaderboard = () => async (dispatch: any) => {
-  dispatch(fetchLeaderboardLoading);
-  const response = await fetch(`${process.env.REACT_APP_BASE_URL}/players`);
-  const players = await response.json();
+    const sortedWinners = players.data.winners.sort(compareNumbers);
+    const sortedLosers = players.data.losers.sort(compareNumbers);
 
-  dispatch(fetchLeaderboardSuccess(players.data));
-};
+    dispatch(
+      fetchLeaderboardSuccess({ winners: sortedWinners, losers: sortedLosers })
+    );
+  };
 
 export const SEND_REQUEST_TO_FRIENDS = "SEND_REQUEST_TO_FRIENDS";
 
@@ -26,6 +31,7 @@ const sendRequestToFriendsSuccess = (id: string) => ({
   payload: id,
 });
 
-export const sendRequestToFriends = (id: string) => (dispatch: any) => {
-  dispatch(sendRequestToFriendsSuccess(id));
-};
+export const sendRequestToFriends =
+  (id: string) => (dispatch: (action: AnyAction) => void) => {
+    dispatch(sendRequestToFriendsSuccess(id));
+  };
