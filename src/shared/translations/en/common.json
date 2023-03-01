@@ -1,0 +1,11 @@
+{
+  "position": "Position",
+  "nickname": "Nickname",
+  "score": "Score",
+  "state": "State",
+  "friend-request": "Friend request",
+  "send": "Send",
+  "winners": "Winners",
+  "losers": "Losers",
+  "fighting-result": "Fighting result"
+}
