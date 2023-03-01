@@ -4,7 +4,7 @@ import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 
-import { useStyles } from ".";
+import { useStyles, tableHeadConfig } from ".";
 
 export const LeaderBoardTableHead = () => {
   const classes = useStyles();
@@ -13,11 +13,9 @@ export const LeaderBoardTableHead = () => {
   return (
     <TableHead>
       <TableRow className={classes.tableRow}>
-        <TableCell>{t("position")}</TableCell>
-        <TableCell>{t("nickname")}</TableCell>
-        <TableCell align="right">{t("score")}</TableCell>
-        <TableCell align="right">{t("state")}</TableCell>
-        <TableCell align="right">{t("friend-request")}</TableCell>
+        {tableHeadConfig.map((name, index) => (
+          <TableCell align={index < 2 ? "left" : "right"}>{t(name)}</TableCell>
+        ))}
       </TableRow>
     </TableHead>
   );
